@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Request a Quote | PGP Glass</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pgp-orange: #EA5E20;
+    --pgp-orange-dark: #cf4e14;
+    --pgp-ink: #16181d;
+    --pgp-ink-soft: #2a2e37;
+    --pgp-grey: #6b7280;
+    --pgp-line: #e3e6ea;
+    --pgp-bg: #f7f7f5;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Manrope', 'Segoe UI', Arial, sans-serif;
+    background: var(--pgp-bg);
+    color: var(--pgp-ink);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ---------- Header ---------- */
+  .pgp-topbar {
+    background: var(--pgp-ink);
+    padding: 18px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .pgp-topbar .pgp-logo img { height: 46px; display: block; }
+  .pgp-contact-group {
+    display: flex;
+    align-items: center;
+    gap: 34px;
+    flex-wrap: wrap;
+  }
+  .pgp-contact-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+  }
+  .pgp-contact-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .pgp-contact-icon svg { width: 16px; height: 16px; stroke: var(--pgp-orange); }
+  .pgp-contact-item:hover .pgp-contact-icon {
+    background: var(--pgp-orange);
+    border-color: var(--pgp-orange);
+  }
+  .pgp-contact-item:hover .pgp-contact-icon svg { stroke: #ffffff; }
+  .pgp-contact-text .pgp-contact-label {
+    display: block;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #868c96;
+    margin-bottom: 2px;
+  }
+  .pgp-contact-text .pgp-contact-value {
+    display: block;
+    font-size: 14.5px;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: 0.01em;
+  }
+
+  /* ---------- Hero ---------- */
+  .pgp-hero {
+    background: linear-gradient(rgba(22,24,29,0.86), rgba(22,24,29,0.92));
+    padding: 72px 40px 96px;
+    text-align: center;
+    color: #ffffff;
+  }
+  .pgp-hero .eyebrow {
+    color: var(--pgp-orange);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .pgp-hero h1 {
+    font-size: 40px;
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    max-width: 800px;
+    margin: 0 auto 18px;
+  }
+  .pgp-hero p {
+    font-size: 16px;
+    color: #b9bec6;
+    max-width: 620px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  /* ---------- Layout ---------- */
+  .pgp-shell {
+    max-width: 1140px;
+    margin: -56px auto 0;
+    padding: 0 24px 80px;
+    display: grid;
+    grid-template-columns: 340px 1fr;
+    gap: 28px;
+    align-items: start;
+  }
+  .pgp-shell.is-done { grid-template-columns: 1fr; max-width: 820px; }
+
+  /* ---------- Side panel ---------- */
+  .pgp-side {
+    background: var(--pgp-ink-soft);
+    color: #ffffff;
+    border-radius: 4px;
+    padding: 36px 30px;
+  }
+  .pgp-side h3 { font-size: 19px; font-weight: 700; margin-bottom: 8px; }
+  .pgp-side > p {
+    font-size: 14px;
+    color: #a9aeb8;
+    line-height: 1.7;
+    margin-bottom: 28px;
+  }
+  .pgp-step { display: flex; gap: 14px; margin-bottom: 22px; }
+  .pgp-step-num {
+    flex: 0 0 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--pgp-orange);
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .pgp-step-txt h4 { font-size: 14px; font-weight: 700; margin-bottom: 3px; }
+  .pgp-step-txt p { font-size: 13px; color: #a9aeb8; line-height: 1.6; }
+  .pgp-side-divider {
+    height: 1px;
+    background: rgba(255,255,255,0.12);
+    margin: 28px 0 24px;
+  }
+  .pgp-side-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--pgp-orange);
+    margin-bottom: 14px;
+  }
+  .pgp-badges { list-style: none; }
+  .pgp-badges li {
+    font-size: 13px;
+    color: #cdd2d9;
+    line-height: 1.6;
+    padding-left: 18px;
+    position: relative;
+    margin-bottom: 10px;
+  }
+  .pgp-badges li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 8px;
+    width: 6px;
+    height: 6px;
+    background: var(--pgp-orange);
+    border-radius: 50%;
+  }
+
+  /* ---------- Card ---------- */
+  .pgp-card {
+    background: #ffffff;
+    border: 1px solid var(--pgp-line);
+    border-radius: 4px;
+    box-shadow: 0 10px 40px rgba(22, 24, 29, 0.07);
+    overflow: hidden;
+  }
+  .pgp-card-head {
+    padding: 30px 40px 24px;
+    border-bottom: 1px solid var(--pgp-line);
+  }
+  .pgp-card-head h2 {
+    font-size: 23px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    margin-bottom: 6px;
+  }
+  .pgp-card-head p { font-size: 14px; color: var(--pgp-grey); }
+  .pgp-card-body { padding: 34px 40px 40px; }
+
+  .pgp-row { display: flex; gap: 22px; flex-wrap: wrap; }
+  .pgp-field { flex: 1 1 240px; margin-bottom: 22px; }
+  .pgp-field.full { flex: 1 1 100%; }
+  .pgp-field.small { flex: 0 1 150px; }
+  .pgp-section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--pgp-grey);
+    margin-bottom: 18px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--pgp-line);
+  }
+  .pgp-section-label.spaced { margin-top: 10px; }
+  label {
+    display: block;
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    margin-bottom: 7px;
+    color: var(--pgp-ink);
+  }
+  label .req { color: var(--pgp-orange); }
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="number"],
+  select,
+  textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid var(--pgp-line);
+    border-radius: 3px;
+    font-size: 14.5px;
+    font-family: inherit;
+    color: var(--pgp-ink);
+    background: #fcfcfb;
+    transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+  }
+  input::placeholder, textarea::placeholder { color: #a8afb8; }
+  input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--pgp-orange);
+    box-shadow: 0 0 0 3px rgba(234, 94, 32, 0.12);
+    background: #ffffff;
+  }
+  textarea { resize: vertical; min-height: 110px; line-height: 1.6; }
+  .pgp-hint {
+    display: block;
+    font-size: 11.5px;
+    font-weight: 500;
+    color: var(--pgp-grey);
+    margin-top: 6px;
+    line-height: 1.5;
+  }
+
+  .pgp-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 6px;
+  }
+  .pgp-submit {
+    background: var(--pgp-orange);
+    color: #ffffff;
+    border: none;
+    padding: 14px 42px;
+    font-size: 14px;
+    font-family: inherit;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+  }
+  .pgp-submit:hover { background: var(--pgp-orange-dark); }
+  .pgp-submit:active { transform: translateY(1px); }
+  .pgp-submit:disabled { background: #b4b9c1; cursor: not-allowed; }
+  .pgp-consent { font-size: 12px; color: var(--pgp-grey); line-height: 1.6; flex: 1 1 260px; }
+  .pgp-consent a { color: var(--pgp-orange); text-decoration: none; }
+
+  /* ---------- Thank you view ---------- */
+  .pgp-thankyou { display: none; }
+  .pgp-thankyou.is-visible { display: block; animation: pgpFade 0.4s ease-out; }
+  @keyframes pgpFade {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .pgp-ty-inner { padding: 56px 56px 48px; text-align: center; }
+  .pgp-check {
+    width: 84px;
+    height: 84px;
+    margin: 0 auto 26px;
+    border-radius: 50%;
+    background: rgba(234, 94, 32, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: pgpPop 0.45s cubic-bezier(0.2, 0.9, 0.3, 1.4);
+  }
+  .pgp-check svg {
+    width: 40px;
+    height: 40px;
+    stroke: var(--pgp-orange);
+    stroke-width: 2.6;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 48;
+    stroke-dashoffset: 48;
+    animation: pgpDraw 0.5s 0.25s forwards ease-out;
+  }
+  @keyframes pgpPop {
+    0% { transform: scale(0.4); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  @keyframes pgpDraw { to { stroke-dashoffset: 0; } }
+  .pgp-ty-inner .eyebrow {
+    color: var(--pgp-orange);
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .pgp-ty-inner h2 {
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    margin-bottom: 14px;
+  }
+  .pgp-ty-inner .lead {
+    font-size: 15.5px;
+    color: var(--pgp-grey);
+    line-height: 1.75;
+    max-width: 540px;
+    margin: 0 auto 38px;
+  }
+  .pgp-ty-inner .lead strong { color: var(--pgp-ink); }
+  .pgp-next {
+    text-align: left;
+    border-top: 1px solid var(--pgp-line);
+    padding-top: 30px;
+    margin-bottom: 36px;
+  }
+  .pgp-next-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--pgp-grey);
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  .pgp-next-grid { display: flex; gap: 22px; flex-wrap: wrap; }
+  .pgp-next-item { flex: 1 1 180px; }
+  .pgp-next-num {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--pgp-ink);
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+  .pgp-next-item h4 { font-size: 14px; font-weight: 700; margin-bottom: 5px; }
+  .pgp-next-item p { font-size: 13px; color: var(--pgp-grey); line-height: 1.65; }
+  .pgp-btn-row { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .pgp-btn {
+    display: inline-block;
+    padding: 13px 34px;
+    font-size: 13px;
+    font-family: inherit;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border-radius: 3px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+  }
+  .pgp-btn-primary { background: var(--pgp-orange); color: #ffffff; border: 1px solid var(--pgp-orange); }
+  .pgp-btn-primary:hover { background: var(--pgp-orange-dark); border-color: var(--pgp-orange-dark); }
+  .pgp-btn-ghost { border: 1px solid var(--pgp-line); color: var(--pgp-ink); background: #ffffff; }
+  .pgp-btn-ghost:hover { border-color: var(--pgp-orange); color: var(--pgp-orange); }
+  .pgp-urgent {
+    margin-top: 30px;
+    padding-top: 24px;
+    border-top: 1px solid var(--pgp-line);
+    font-size: 13px;
+    color: var(--pgp-grey);
+    line-height: 1.8;
+  }
+  .pgp-urgent a { color: var(--pgp-orange); text-decoration: none; font-weight: 700; }
+
+  /* ---------- Footer ---------- */
+  .pgp-footer {
+    background: var(--pgp-ink);
+    color: #8d939c;
+    padding: 40px 40px 34px;
+    text-align: center;
+    font-size: 12.5px;
+  }
+  .pgp-footer img { height: 34px; margin-bottom: 14px; }
+  .pgp-footer p { line-height: 1.8; }
+  .pgp-footer .tag { color: #ffffff; font-weight: 600; margin-bottom: 10px; }
+  .pgp-footer .addr { max-width: 620px; margin: 0 auto 10px; }
+  .pgp-footer a { color: var(--pgp-orange); text-decoration: none; }
+  .pgp-footer .copy {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .pgp-hidden { display: none !important; }
+  #pgpSalesforceFrame {
+    display: none;
+    width: 0;
+    height: 0;
+    border: 0;
+  }
+
+  @media (max-width: 900px) {
+    .pgp-shell { grid-template-columns: 1fr; }
+    .pgp-hero h1 { font-size: 30px; }
+    .pgp-topbar { justify-content: center; text-align: center; }
+    .pgp-contact-group { gap: 22px; justify-content: center; }
+    .pgp-topbar, .pgp-hero, .pgp-footer { padding-left: 20px; padding-right: 20px; }
+    .pgp-card-head, .pgp-card-body, .pgp-ty-inner { padding-left: 24px; padding-right: 24px; }
+    .pgp-ty-inner h2 { font-size: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="pgp-topbar">
+  <a class="pgp-logo" href="https://www.pgpfirst.com/">
+    <img src="https://www.pgpfirst.com/wp-content/uploads/logo-white.svg" alt="PGP Glass">
+  </a>
+
+  <div class="pgp-contact-group">
+    <a class="pgp-contact-item" href="mailto:info@pgpfirst.com">
+      <span class="pgp-contact-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+          <path d="M2 7l10 6 10-6"></path>
+        </svg>
+      </span>
+      <span class="pgp-contact-text">
+        <span class="pgp-contact-label">Email Us</span>
+        <span class="pgp-contact-value">info@pgpfirst.com</span>
+      </span>
+    </a>
+
+    <a class="pgp-contact-item" href="tel:+912230466969">
+      <span class="pgp-contact-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"></path>
+        </svg>
+      </span>
+      <span class="pgp-contact-text">
+        <span class="pgp-contact-label">Call Us</span>
+        <span class="pgp-contact-value">+91 22 3046 6969</span>
+      </span>
+    </a>
+  </div>
+</header>
+
+<section class="pgp-hero">
+  <div class="eyebrow" id="pgpHeroEyebrow">Request a Quote</div>
+  <h1 id="pgpHeroTitle">Tell us what you need, and we will shape the glass around it.</h1>
+  <p id="pgpHeroText">Share your part requirement and schedule, and our team will prepare a proposal tailored to your volumes.</p>
+</section>
+
+<div class="pgp-shell" id="pgpShell">
+
+  <aside class="pgp-side" id="pgpSidePanel">
+    <h3>How it works</h3>
+    <p>Three simple steps between your requirement and our proposal.</p>
+
+    <div class="pgp-step">
+      <div class="pgp-step-num">1</div>
+      <div class="pgp-step-txt">
+        <h4>Share your requirement</h4>
+        <p>Part names, quantities and how often you need them delivered.</p>
+      </div>
+    </div>
+
+    <div class="pgp-step">
+      <div class="pgp-step-num">2</div>
+      <div class="pgp-step-txt">
+        <h4>We assess feasibility</h4>
+        <p>Our team checks moulds, capacity and the right plant for your order.</p>
+      </div>
+    </div>
+
+    <div class="pgp-step">
+      <div class="pgp-step-num">3</div>
+      <div class="pgp-step-txt">
+        <h4>You receive a proposal</h4>
+        <p>Pricing, lead times and next steps within one business day.</p>
+      </div>
+    </div>
+
+    <div class="pgp-side-divider"></div>
+
+    <div class="pgp-side-label">Why PGP Glass</div>
+    <ul class="pgp-badges">
+      <li>40+ years in premium glass packaging</li>
+      <li>Presence across four continents</li>
+      <li>EcoVadis Platinum &mdash; top 1% globally</li>
+      <li>In-house design studio and mould development</li>
+      <li>Manufacturing in India and Sri Lanka</li>
+    </ul>
+  </aside>
+
+  <main class="pgp-card">
+
+    <!-- ===== FORM VIEW ===== -->
+    <div id="pgpFormView">
+      <div class="pgp-card-head">
+        <h2>Request a quotation</h2>
+        <p>Fields marked with an asterisk are required.</p>
+      </div>
+
+      <div class="pgp-card-body">
+        <form action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8"
+              method="POST"
+              id="pgpWebToLead"
+              target="pgpSalesforceFrame">
+
+          <!-- Salesforce hidden fields -->
+          <input type="hidden" name="oid" value="00DKZ000006jHtt">
+          <input type="hidden" name="retURL" value="https://www.pgpfirst.com/">
+          <input type="hidden" name="recordType" value="012KZ000000Kf8S">
+          <input type="hidden" name="lead_source" value="Website">
+
+          <div class="pgp-section-label">Your details</div>
+
+          <div class="pgp-row">
+            <div class="pgp-field small">
+              <label for="salutation">Title</label>
+              <select id="salutation" name="salutation">
+                <option value="">--None--</option>
+                <option value="Mr.">Mr.</option>
+                <option value="Ms.">Ms.</option>
+                <option value="Mrs.">Mrs.</option>
+                <option value="Dr.">Dr.</option>
+                <option value="Prof.">Prof.</option>
+                <option value="Mx.">Mx.</option>
+              </select>
+            </div>
+            <div class="pgp-field">
+              <label for="first_name">First Name</label>
+              <input id="first_name" name="first_name" type="text" maxlength="40" placeholder="First name">
+            </div>
+            <div class="pgp-field">
+              <label for="last_name">Last Name <span class="req">*</span></label>
+              <input id="last_name" name="last_name" type="text" maxlength="80" placeholder="Last name" required>
+            </div>
+          </div>
+
+          <div class="pgp-row">
+            <div class="pgp-field">
+              <label for="email">Business Email <span class="req">*</span></label>
+              <input id="email" name="email" type="email" maxlength="80" placeholder="name@company.com" required>
+            </div>
+            <div class="pgp-field">
+              <label for="mobile">Mobile Number <span class="req">*</span></label>
+              <input id="mobile" name="mobile" type="tel" maxlength="40" placeholder="Include country code" required>
+            </div>
+          </div>
+
+          <div class="pgp-field full">
+            <label for="company">Company Name <span class="req">*</span></label>
+            <input id="company" name="company" type="text" maxlength="40" placeholder="Registered company name" required>
+          </div>
+
+          <div class="pgp-section-label spaced">Location</div>
+
+          <div class="pgp-row">
+            <div class="pgp-field">
+              <label for="city">City</label>
+              <input id="city" name="city" type="text" maxlength="40" placeholder="City">
+            </div>
+            <div class="pgp-field">
+              <label for="state">State / Province</label>
+              <input id="state" name="state" type="text" maxlength="20" placeholder="State">
+            </div>
+            <div class="pgp-field">
+              <label for="country">Country <span class="req">*</span></label>
+              <input id="country" name="country" type="text" maxlength="40" placeholder="Country" required>
+            </div>
+          </div>
+
+          <div class="pgp-section-label spaced">Your requirement</div>
+
+          <div class="pgp-field full">
+            <label for="00NKZ000008LQ7l">Part Name with Quantity <span class="req">*</span></label>
+            <input id="00NKZ000008LQ7l" name="00NKZ000008LQ7l" type="text" maxlength="255"
+                   placeholder="e.g. 100ml EXOTIQUE perfume bottle - 50,000 units" required>
+            <span class="pgp-hint">Mention the product name or code along with the quantity you need.</span>
+          </div>
+
+          <div class="pgp-row">
+            <div class="pgp-field">
+              <label for="00NKZ00000PLQK6">Frequency <span class="req">*</span></label>
+              <select id="00NKZ00000PLQK6" name="00NKZ00000PLQK6" title="Frequency" required>
+                <option value="">--None--</option>
+                <option value="One-Time">One-Time</option>
+                <option value="Weekly">Weekly</option>
+                <option value="Monthly">Monthly</option>
+                <option value="Quaterly">Quaterly</option>
+                <option value="Yearly">Yearly</option>
+              </select>
+            </div>
+            <div class="pgp-field">
+              <label for="00NKZ00000PLQKB">Schedule Count</label>
+              <input id="00NKZ00000PLQKB" name="00NKZ00000PLQKB" type="number" min="1" placeholder="e.g. 12">
+              <span class="pgp-hint">How many deliveries across the chosen frequency.</span>
+            </div>
+          </div>
+
+          <div class="pgp-actions">
+            <p class="pgp-consent">
+              By submitting this form you agree that PGP Glass may contact you regarding your requirement, as described in our
+              <a href="https://www.pgpfirst.com/privacy-policy/">privacy policy</a>.
+            </p>
+            <button type="submit" class="pgp-submit" id="pgpSubmitBtn" name="submit">Submit Request</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+
+    <!-- ===== THANK YOU VIEW ===== -->
+    <div id="pgpThankYouView" class="pgp-thankyou">
+      <div class="pgp-ty-inner">
+
+        <div class="pgp-check">
+          <svg viewBox="0 0 24 24">
+            <path d="M4 12.5l5.5 5.5L20 7"></path>
+          </svg>
+        </div>
+
+        <div class="eyebrow">Request Received</div>
+        <h2>Thank you for reaching out to PGP Glass</h2>
+        <p class="lead">
+          Your requirement has reached our sales team, <strong id="pgpUserName">and</strong> a confirmation
+          is on its way to <strong id="pgpUserEmail">your inbox</strong>.
+        </p>
+
+        <div class="pgp-next">
+          <div class="pgp-next-label">What happens next</div>
+          <div class="pgp-next-grid">
+            <div class="pgp-next-item">
+              <div class="pgp-next-num">1</div>
+              <h4>We review your requirement</h4>
+              <p>Part specifications, quantities and delivery schedule are assessed.</p>
+            </div>
+            <div class="pgp-next-item">
+              <div class="pgp-next-num">2</div>
+              <h4>A specialist is assigned</h4>
+              <p>Your request goes to the right expert for your industry and region.</p>
+            </div>
+            <div class="pgp-next-item">
+              <div class="pgp-next-num">3</div>
+              <h4>You receive a proposal</h4>
+              <p>Expect pricing and lead times within one business day.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="pgp-btn-row">
+          <a class="pgp-btn pgp-btn-primary" href="https://www.pgpfirst.com/">Back to Home</a>
+          <button type="button" class="pgp-btn pgp-btn-ghost" id="pgpAnotherBtn">Submit Another Request</button>
+        </div>
+
+        <div class="pgp-urgent">
+          Need to speak with someone urgently?<br>
+          Write to <a href="mailto:info@pgpfirst.com">info@pgpfirst.com</a> or call <a href="tel:+912230466969">+91 22 3046 6969</a>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+</div>
+
+<footer class="pgp-footer">
+  <img src="https://www.pgpfirst.com/wp-content/uploads/logo-white.svg" alt="PGP Glass">
+  <p class="tag">Fired by Imagination, Molded to Perfection</p>
+  <p class="addr">
+    PGP Glass Limited, 1102, 11th Floor, Tower 2B, One World Center,<br>
+    Senapati Bapat Marg, Prabhadevi (West), Mumbai &ndash; 400013, Maharashtra, India
+  </p>
+  <p>
+    <a href="mailto:info@pgpfirst.com">info@pgpfirst.com</a>
+    &nbsp;&bull;&nbsp;
+    <a href="tel:+912230466969">+91 22 3046 6969</a>
+  </p>
+  <p class="copy">&copy; 2026 PGP Glass Limited. All rights reserved.</p>
+</footer>
+
+<!-- Form ya hidden iframe madhe submit hoto, mhanun page reload hot nahi -->
+<iframe id="pgpSalesforceFrame" name="pgpSalesforceFrame" src="about:blank"></iframe>
+
+<script>
+(function () {
+  var form      = document.getElementById('pgpWebToLead');
+  var btn       = document.getElementById('pgpSubmitBtn');
+  var formView  = document.getElementById('pgpFormView');
+  var tyView    = document.getElementById('pgpThankYouView');
+  var shell     = document.getElementById('pgpShell');
+  var sidePanel = document.getElementById('pgpSidePanel');
+  var heroEye   = document.getElementById('pgpHeroEyebrow');
+  var heroTitle = document.getElementById('pgpHeroTitle');
+  var heroText  = document.getElementById('pgpHeroText');
+  var againBtn  = document.getElementById('pgpAnotherBtn');
+
+  var heroDefaults = {
+    eyebrow: heroEye.textContent,
+    title: heroTitle.textContent,
+    text: heroText.textContent
+  };
+
+  form.addEventListener('submit', function () {
+    var first = document.getElementById('first_name').value.trim();
+    var email = document.getElementById('email').value.trim();
+
+    btn.disabled = true;
+    btn.textContent = 'Submitting...';
+
+    document.getElementById('pgpUserName').textContent = first ? (first + ',') : 'and';
+    if (email) {
+      document.getElementById('pgpUserEmail').textContent = email;
+    }
+
+    // Salesforce la data janyasathi thoda vel deun mag thank you dakhav
+    setTimeout(function () {
+      formView.classList.add('pgp-hidden');
+      sidePanel.classList.add('pgp-hidden');
+      shell.classList.add('is-done');
+      tyView.classList.add('is-visible');
+
+      heroEye.textContent   = 'Thank You';
+      heroTitle.textContent = 'Your request is on its way to our team.';
+      heroText.textContent  = 'We have received your requirement and will be in touch shortly.';
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 1200);
+  });
+
+  // "Submit Another Request" - form parat dakhavto
+  againBtn.addEventListener('click', function () {
+    form.reset();
+    btn.disabled = false;
+    btn.textContent = 'Submit Request';
+
+    tyView.classList.remove('is-visible');
+    shell.classList.remove('is-done');
+    formView.classList.remove('pgp-hidden');
+    sidePanel.classList.remove('pgp-hidden');
+
+    heroEye.textContent   = heroDefaults.eyebrow;
+    heroTitle.textContent = heroDefaults.title;
+    heroText.textContent  = heroDefaults.text;
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+})();
+</script>
+
+</body>
+</html>
